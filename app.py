@@ -2,7 +2,7 @@ from flask import Flask, request
 from werkzeug.utils import secure_filename
 
 import os
-basedir = os.path.abspath(os.path.dirname(__file__))
+
 
 app = Flask(__name__)
 
@@ -18,7 +18,10 @@ def video_upload():
         f = request.files['file']
 
         filename = secure_filename(f.filename)
+
+        basedir = os.path.abspath(os.path.dirname(__file__))
         path = os.path.join(basedir, filename)
+        print(path)
         f.save(path)
     return "process video"
 
