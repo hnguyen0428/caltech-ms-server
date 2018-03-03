@@ -8,7 +8,7 @@ import os
 UPLOAD_FOLDER = 'videos/'
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOADED_PHOTOS_DEST'] = UPLOAD_FOLDER
 
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
