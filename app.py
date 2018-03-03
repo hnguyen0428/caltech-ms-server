@@ -1,8 +1,10 @@
 from flask import Flask, request
 from werkzeug.utils import secure_filename
+from utility import allowed_file
 
 import os
 
+UPLOAD_FOLDER = '/var/www/html/caltech-ms-server/videos'
 
 app = Flask(__name__)
 
@@ -15,16 +17,24 @@ def home():
 @app.route('/video/upload', methods=['POST'])
 def video_upload():
     if request.method == 'POST':
-        f = request.files['file']
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            return 'No file part'
 
-        filename = secure_filename(f.filename)
+        file = request.files['file']
 
-        basedir = os.path.abspath(os.path.dirname(__file__))
-        path = os.path.join(basedir, filename)
-        print(path)
-        f.save(path)
-    return "process video"
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            return 'No selected file'
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+    return "File uploaded"
 
 
 if __name__ == '__main__':
     app.run()
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER

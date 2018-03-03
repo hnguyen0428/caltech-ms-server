@@ -1,10 +1,7 @@
 
-import random
-import string
 
-path = 'videos/'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-def generate_filename(n=60):
-    filename = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(n))
-    result = path + filename
-    return result
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
