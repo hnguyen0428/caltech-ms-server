@@ -30,7 +30,9 @@ def video_upload():
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            print(path)
+            file.save(path)
 
     return "File uploaded"
 
