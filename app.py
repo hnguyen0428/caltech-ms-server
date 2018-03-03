@@ -4,10 +4,10 @@ from utility import allowed_file
 
 import os
 
-UPLOAD_FOLDER = '/var/www/html/caltech-ms-server/videos'
+UPLOAD_FOLDER = '/videos/'
 
 app = Flask(__name__)
-
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def home():
@@ -36,6 +36,5 @@ def video_upload():
 
 
 if __name__ == '__main__':
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.run()
 
