@@ -1,6 +1,6 @@
 from flask import Flask, request
 import utility
-import werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
