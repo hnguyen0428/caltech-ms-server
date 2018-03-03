@@ -20,22 +20,22 @@ def home():
 
 @app.route('/video/upload', methods=['POST'])
 def video_upload():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            return 'No file part'
-
-        file = request.files['file']
-
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            return 'No selected file'
-
-        if file and allowed_file(file.filename):
-            filename = photos.save(request.files['file'])
-
-            return filename
+    # if request.method == 'POST':
+    #     # check if the post request has the file part
+    #     if 'file' not in request.files:
+    #         return 'No file part'
+    #
+    #     file = request.files['file']
+    #
+    #     # if user does not select file, browser also
+    #     # submit a empty part without filename
+    #     if file.filename == '':
+    #         return 'No selected file'
+    #
+    #     if file and allowed_file(file.filename):
+    #         filename = photos.save(file)
+    #
+    #         return filename
 
     return "File uploaded"
 
