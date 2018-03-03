@@ -30,9 +30,10 @@ def video_upload():
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
+
             path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            print(path)
-            file.save(path)
+
+            file.save("/var/www/html/caltech-ms-server/videos/hello")
 
     return "File uploaded"
 
