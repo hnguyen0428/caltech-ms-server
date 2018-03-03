@@ -5,13 +5,14 @@ from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 import os
 
-UPLOAD_FOLDER = '~/videos/'
+UPLOAD_FOLDER = '/var/www/html/caltech-ms-server/videos/'
 
 app = Flask(__name__)
-app.config['UPLOADED_PHOTOS_DEST'] = UPLOAD_FOLDER
+# app.config['UPLOADED_PHOTOS_DEST'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-photos = UploadSet('photos', IMAGES)
-configure_uploads(app, photos)
+# photos = UploadSet('photos', IMAGES)
+# configure_uploads(app, photos)
 
 @app.route('/')
 def home():
@@ -33,8 +34,9 @@ def video_upload():
             return 'No selected file'
 
         if file and allowed_file(file.filename):
-            filename = photos.save(file)
-
+            filename = secure_filename(file.filename)
+            path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(path)
             return filename
 
     return "File uploaded"
