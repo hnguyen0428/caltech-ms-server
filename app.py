@@ -5,7 +5,7 @@ from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 import os
 
-UPLOAD_FOLDER = 'videos/'
+UPLOAD_FOLDER = '~/videos/'
 
 app = Flask(__name__)
 app.config['UPLOADED_PHOTOS_DEST'] = UPLOAD_FOLDER
