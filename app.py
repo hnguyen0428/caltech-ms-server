@@ -1,7 +1,6 @@
 from flask import Flask, request
 from werkzeug.utils import secure_filename
 from utility import allowed_file
-from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 import os
 
@@ -11,8 +10,6 @@ app = Flask(__name__)
 # app.config['UPLOADED_PHOTOS_DEST'] = UPLOAD_FOLDER
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# photos = UploadSet('photos', IMAGES)
-# configure_uploads(app, photos)
 
 @app.route('/')
 def home():
