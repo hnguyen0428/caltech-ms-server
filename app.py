@@ -36,5 +36,6 @@ def video_upload():
 
 
 if __name__ == '__main__':
-    app.run()
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.run()
+
