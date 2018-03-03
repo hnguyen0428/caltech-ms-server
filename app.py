@@ -1,13 +1,17 @@
 from flask import Flask, request
 from werkzeug.utils import secure_filename
 from utility import allowed_file
+from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 import os
 
-UPLOAD_FOLDER = '/videos/'
+UPLOAD_FOLDER = 'videos/'
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+photos = UploadSet('photos', IMAGES)
+configure_uploads(app, photos)
 
 @app.route('/')
 def home():
@@ -29,16 +33,13 @@ def video_upload():
             return 'No selected file'
 
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            filename = photos.save(request.files['file'])
 
-            path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-
-            file.save("/var/www/html/caltech-ms-server/videos/hello")
+            return filename
 
     return "File uploaded"
 
 
 if __name__ == '__main__':
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.run(debug=True)
 
