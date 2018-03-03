@@ -1,5 +1,6 @@
 from flask import Flask, request
 import utility
+import werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -14,7 +15,7 @@ def video_upload():
     if request.method == 'POST':
         f = request.files['file']
 
-        f.save(utility.generate_filename())
+        f.save(secure_filename(f.filename))
     return "process video"
 
 
