@@ -12,8 +12,8 @@ def allowed_file(filename):
 
 def generate_filename(extension, n=60):
     filename = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(n))
-    filename = filename + '.' + extension
-    return filename
+    filename_ext = filename + '.' + extension
+    return filename, filename_ext
 
 def extension(filename):
     i = 0

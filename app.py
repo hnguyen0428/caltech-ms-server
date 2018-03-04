@@ -32,9 +32,9 @@ def video_upload():
 
         if file and allowed_file(file.filename):
             ext = extension(file.filename)
-            filename = generate_filename(ext)
+            filename, filename_ext = generate_filename(ext)
 
-            path = os.path.join(app.config['VIDEOS_FOLDER'], filename)
+            path = os.path.join(app.config['VIDEOS_FOLDER'], filename_ext)
             file.save(path)
 
             audio_filename = extract_wav(filename, app.config['VIDEOS_FOLDER'])
