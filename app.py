@@ -106,7 +106,7 @@ def retrieve_video(filename):
 
 
 @app.route('/video/original/<filename>', methods=['GET'])
-def retrieve_video(filename):
+def retrieve_original_video(filename):
     dir = app.config['VIDEOS_FOLDER']
     return send_from_directory(dir, filename)
 
