@@ -28,7 +28,6 @@ def home():
 
 
 @app.route('/video/upload', methods=['POST'])
-@crossdomain(origin='*')
 def video_upload():
     if request.method == 'POST':
         # check if the post request has the file part
