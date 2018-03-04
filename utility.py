@@ -1,7 +1,6 @@
 import random
 import string
 import subprocess
-from app import server
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4', 'mov', 'wmv', 'avi'])
 
@@ -26,12 +25,12 @@ def extension(filename):
     i += 1
     return filename[i:]
 
-def extract_wav(filename):
-    videos_path = server.config['VIDEOS_FOLDER']
-    path = videos_path + filename
+
+def extract_wav(filename, abs_path):
+    path = abs_path + filename
 
     audio_filename = filename + '.wav'
     command = 'ffmpeg -i ' + path + ' -ab 160k -ac 2 -ar 44100 -vn ' + audio_filename
     subprocess.call(command, shell=True)
-    return videos_path + audio_filename
+    return abs_path + audio_filename
 

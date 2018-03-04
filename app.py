@@ -34,9 +34,11 @@ def video_upload():
             ext = extension(file.filename)
             filename = generate_filename(ext)
 
-            path = os.path.join(app.config['VIDEOS_FOLDER'], filename)
+            path = os.path.join(server.config['VIDEOS_FOLDER'], filename)
             file.save(path)
-            audio_filename = extract_wav(filename)
+
+            audio_filename = extract_wav(filename, server.config['VIDEOS_FOLDER'])
+
             return filename, audio_filename
 
     return "File uploaded"
