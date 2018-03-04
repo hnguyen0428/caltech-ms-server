@@ -11,12 +11,12 @@ server = Flask(__name__)
 server.config['VIDEOS_FOLDER'] = VIDEOS_FOLDER
 
 
-@app.route('/')
+@server.route('/')
 def home():
     return 'Caltech Hackathon'
 
 
-@app.route('/video/upload', methods=['POST'])
+@server.route('/video/upload', methods=['POST'])
 def video_upload():
     if request.method == 'POST':
         # check if the post request has the file part
