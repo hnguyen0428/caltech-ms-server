@@ -39,7 +39,7 @@ def video_upload():
 
             audio_filename = extract_wav(filename, app.config['VIDEOS_FOLDER'])
 
-            return filename, audio_filename
+            return audio_filename
 
     return "File uploaded"
 
