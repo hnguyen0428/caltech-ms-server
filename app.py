@@ -6,17 +6,17 @@ import os
 
 VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
 
-server = Flask(__name__)
+app = Flask(__name__)
 # app.config['UPLOADED_PHOTOS_DEST'] = UPLOAD_FOLDER
-server.config['VIDEOS_FOLDER'] = VIDEOS_FOLDER
+app.config['VIDEOS_FOLDER'] = VIDEOS_FOLDER
 
 
-@server.route('/')
+@app.route('/')
 def home():
     return 'Caltech Hackathon'
 
 
-@server.route('/video/upload', methods=['POST'])
+@app.route('/video/upload', methods=['POST'])
 def video_upload():
     if request.method == 'POST':
         # check if the post request has the file part
@@ -34,10 +34,10 @@ def video_upload():
             ext = extension(file.filename)
             filename = generate_filename(ext)
 
-            path = os.path.join(server.config['VIDEOS_FOLDER'], filename)
+            path = os.path.join(app.config['VIDEOS_FOLDER'], filename)
             file.save(path)
 
-            audio_filename = extract_wav(filename, server.config['VIDEOS_FOLDER'])
+            audio_filename = extract_wav(filename, app.config['VIDEOS_FOLDER'])
 
             return filename, audio_filename
 
@@ -45,5 +45,5 @@ def video_upload():
 
 
 if __name__ == '__main__':
-    server.run(debug=True)
+    app.run(debug=True)
 
