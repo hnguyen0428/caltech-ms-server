@@ -65,7 +65,7 @@ def chunkVideoFiles(audioFilename):
     print(EDITED_VIDEOS_FOLDER + audioFilename)
     myaudio = AudioSegment.from_file(EDITED_VIDEOS_FOLDER + audioFilename, "wav")
 
-    chunk_length_ms = 10000  # pydub calculates in millisec
+    chunk_length_ms = 14000  # pydub calculates in millisec
     chunks = make_chunks(myaudio, chunk_length_ms)  # Make chunks
     chunk_names = []
     chunk_times = []
