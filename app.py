@@ -4,12 +4,11 @@ from flask import Flask, request, send_from_directory, jsonify
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from utility import *
+from video_parser import HighlightMaker
 
 
 import os
 import sys
-
-print(sys.path, file=sys.stderr)
 
 base_url = 'http://18.144.27.216/video/'
 VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
@@ -25,6 +24,11 @@ app.config['EDITED_VIDEOS_FOLDER'] = EDITED_VIDEOS_FOLDER
 @app.route('/')
 def home():
     return 'Caltech Hackathon'
+
+
+def process_video(filename):
+    hm = HighlightMaker()
+    hm.extractHighlight(filename)
 
 
 @app.route('/video/upload', methods=['POST'])
@@ -51,6 +55,8 @@ def video_upload():
             path = os.path.join(app.config['VIDEOS_FOLDER'], filename)
             file.save(path)
 
+            process_video(filename)
+
             return jsonify(
                 url=base_url+filename
             )
@@ -62,7 +68,7 @@ def video_upload():
 
 @app.route('/video/<filename>', methods=['GET'])
 def retrieve_video(filename):
-    dir = app.config['VIDEOS_FOLDER']
+    dir = app.config['EDITED_VIDEOS_FOLDER']
     return send_from_directory(dir, filename)
 
 
