@@ -6,7 +6,6 @@ import numpy as np
 from moviepy.editor import *
 from conf import base_url, VIDEOS_FOLDER, EDITED_VIDEOS_FOLDER
 
-
 class HighlightMaker():
     def __init__(self, videosPath=VIDEOS_FOLDER, editedVideosPath=EDITED_VIDEOS_FOLDER):
         self.videosPath = videosPath
@@ -107,7 +106,7 @@ class HighlightMaker():
 
         #write out new video if we want to
         if write:
-            clip.write_videofile(self.editedVideosPath + self.videoFilename, temp_audiofile="temp-audio.m4a", remove_temp=True,
+            clip.write_videofile(self.editedVideosPath + self.videoFilename, temp_audiofile=self.editedVideosPath + "temp-audio.m4a", remove_temp=True,
                              codec="libx264", audio_codec="aac")
 
             wavFile = videoFilename.split(".")[0] + ".wav"
