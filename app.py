@@ -55,7 +55,7 @@ def speech_process(filename):
 def video_upload():
     if request.method == 'POST':
         # check if the post request has the file part
-        if Categories.ENTERTAINMENT not in request.files and Categories.SPEECH not in request.files and Categories.CLASSROOM:
+        if Categories.ENTERTAINMENT not in request.files and Categories.SPEECH not in request.files and Categories.CLASSROOM not in request.files:
             return jsonify(
                 error="No file part"
             )
