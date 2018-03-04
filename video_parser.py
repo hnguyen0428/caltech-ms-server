@@ -1,9 +1,11 @@
 import imageio
+
+imageio.plugins.ffmpeg.download()
+
 import numpy as np
 from moviepy.editor import *
 from conf import base_url, VIDEOS_FOLDER, EDITED_VIDEOS_FOLDER
 
-imageio.plugins.ffmpeg.download()
 
 class HighlightMaker():
     def __init__(self, videosPath=VIDEOS_FOLDER, editedVideosPath=EDITED_VIDEOS_FOLDER):
@@ -90,8 +92,7 @@ class HighlightMaker():
                 else:
                     e = s
 
-        print(include_ranges)
-        fade_duration = 1  # 1-second fade-in for each clip
+        # fade_duration = 1  # 1-second fade-in for each clip
 
         #create the subclips, then merge them together (with fading transitions)
         subclips = []
@@ -99,8 +100,8 @@ class HighlightMaker():
             print(include[1]-include[0])
             subclips.append(self.videoClip.subclip(include[0], include[1]))
 
-        clips = [clip.crossfadein(fade_duration) for clip in subclips]
-        clip = concatenate_videoclips(subclips, padding=-fade_duration)
+        # clips = [clip.crossfadein(fade_duration) for clip in subclips]
+        clip = concatenate_videoclips(subclips)
 
         print("The new video is {} seconds long".format(clip.duration))
 
