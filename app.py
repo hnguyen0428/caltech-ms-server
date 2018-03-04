@@ -1,6 +1,6 @@
 from flask import Flask, request
 from werkzeug.utils import secure_filename
-from utility import allowed_file
+from utility import *
 
 import os
 
@@ -30,11 +30,10 @@ def video_upload():
         if file.filename == '':
             return 'No selected file'
 
-
         if file and allowed_file(file.filename):
-            filename = file.filename
-            filename.replace(" ", "")
-            filename = secure_filename(filename)
+            ext = extension(file.filename)
+            filename = generate_filename(ext)
+
             path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(path)
             return filename
