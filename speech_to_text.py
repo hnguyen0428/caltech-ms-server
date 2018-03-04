@@ -20,14 +20,14 @@ class Microsoft_ASR():
         str_data = response.read()
         conn.close()
         self.token = str_data
-        print "Got Token: ", self.token
+        print("Got Token: ", self.token)
         return True
 
     def transcribe(self,speech_file):
 
         # Grab the token if we need it
         if self.token is None:
-            print "No Token... Getting one"
+            print("No Token... Getting one")
             self.get_speech_token()
 
         endpoint = 'https://speech.platform.bing.com/speech/recognition/conversation/cognitiveservices/v1'
@@ -62,32 +62,58 @@ def chunkVideoFiles(audioFilename):
     from pydub import AudioSegment
     from pydub.utils import make_chunks
 
+    print(EDITED_VIDEOS_FOLDER + audioFilename)
     myaudio = AudioSegment.from_file(EDITED_VIDEOS_FOLDER + audioFilename, "wav")
 
-    chunk_length_ms = 10000  # pydub calculates in millisec
+    chunk_length_ms = 14000  # pydub calculates in millisec
     chunks = make_chunks(myaudio, chunk_length_ms)  # Make chunks
     chunk_names = []
+    chunk_times = []
 
     # Export all of the individual chunks as wav files
     for i, chunk in enumerate(chunks):
-        chunk_name = EDITED_VIDEOS_FOLDER + "{}{}.wav".format(audioFilename, i)
+
+        if i == 0:
+            chunk_times.append(0)
+        else:
+            chunk_times.append(len(chunks[i-1])/1000.0 + chunk_times[-1])
+
+        basename = audioFilename.split(".")[0]
+        chunk_name = EDITED_VIDEOS_FOLDER + "{}{}.wav".format(basename, i)
         chunk_names.append(chunk_name)
 
-        print "exporting", chunk_name
         chunk.export(chunk_name, format="wav")
 
-    return chunk_names
+    return (chunk_times, chunk_names)
 
 def transcribe(audioFilename):
+
+    file_parts = audioFilename.split(".")
+    base = file_parts[0]
+    ext = file_parts[1]
+
+    if(ext != "wav"):
+
+        import imageio
+
+        imageio.plugins.ffmpeg.download()
+
+        from moviepy.editor import VideoFileClip
+
+        videoClip = VideoFileClip(VIDEOS_FOLDER + audioFilename)
+
+        videoClip.audio.write_audiofile(EDITED_VIDEOS_FOLDER + base + ".wav")
+
+        audioFilename = base + ".wav"
+
     ms_asr = Microsoft_ASR()
     ms_asr.get_speech_token()
 
-    chunk_names = chunkVideoFiles(audioFilename)
+    chunk_times, chunk_names = chunkVideoFiles(audioFilename)
 
     texts = []
     for chunk_name in chunk_names:
         text = ms_asr.transcribe(chunk_name)
         texts.append(text)
-        print "Text: ", text
 
-    return texts
+    return (chunk_times, texts)
