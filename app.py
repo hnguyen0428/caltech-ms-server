@@ -1,15 +1,17 @@
-from flask import Flask, request, send_from_directory
+from flask import Flask, request, send_from_directory, jsonify
 from werkzeug.utils import secure_filename
 from utility import *
 
 import os
-import cv2
 
+base_url = 'http://18.144.27.216/video/'
 VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
+EDITED_VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/edited_videos/'
 
 app = Flask(__name__)
 # app.config['UPLOADED_PHOTOS_DEST'] = UPLOAD_FOLDER
 app.config['VIDEOS_FOLDER'] = VIDEOS_FOLDER
+app.config['EDITED_VIDEOS_FOLDER'] = EDITED_VIDEOS_FOLDER
 
 
 @app.route('/')
@@ -37,7 +39,9 @@ def video_upload():
             path = os.path.join(app.config['VIDEOS_FOLDER'], filename)
             file.save(path)
 
-            return filename
+            return jsonify(
+                url=base_url+filename
+            )
 
     return "File uploaded"
 
