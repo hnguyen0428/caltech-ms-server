@@ -4,11 +4,11 @@ from utility import *
 
 import os
 
-UPLOAD_FOLDER = '/var/www/html/caltech-ms-server/videos/'
+VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
 
 app = Flask(__name__)
 # app.config['UPLOADED_PHOTOS_DEST'] = UPLOAD_FOLDER
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['VIDEOS_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route('/')
@@ -34,9 +34,10 @@ def video_upload():
             ext = extension(file.filename)
             filename = generate_filename(ext)
 
-            path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            path = os.path.join(app.config['VIDEOS_FOLDER'], filename)
             file.save(path)
-            return filename
+            audio_filename = extract_wav(filename)
+            return filename, audio_filename
 
     return "File uploaded"
 
