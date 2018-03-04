@@ -12,6 +12,7 @@ from bing_search import *
 import os
 
 base_url = 'http://52.53.158.244/video/'
+base_url_original = 'http://52.53.158.244/video/original/'
 ROOT_FOLDER = '/var/www/html/caltech-ms-server/'
 VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
 EDITED_VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/edited_videos/'
@@ -49,7 +50,7 @@ def speech_process(filename):
             'link': item[2]
         })
 
-    return jsonify(results=results)
+    return jsonify(results=results, url=base_url_original+filename)
 
 
 
@@ -101,6 +102,12 @@ def video_upload():
 @app.route('/video/<filename>', methods=['GET'])
 def retrieve_video(filename):
     dir = app.config['EDITED_VIDEOS_FOLDER']
+    return send_from_directory(dir, filename)
+
+
+@app.route('/video/original/<filename>', methods=['GET'])
+def retrieve_video(filename):
+    dir = app.config['VIDEOS_FOLDER']
     return send_from_directory(dir, filename)
 
 
