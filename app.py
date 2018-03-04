@@ -30,8 +30,11 @@ def video_upload():
         if file.filename == '':
             return 'No selected file'
 
+
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            filename = file.filename
+            filename.replace(" ", "")
+            filename = secure_filename(filename)
             path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(path)
             return filename
