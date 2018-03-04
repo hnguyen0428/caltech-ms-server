@@ -106,7 +106,7 @@ class HighlightMaker():
 
         #write out new video if we want to
         if write:
-            clip.write_videofile(self.editedVideosPath + self.videoFilename, temp_audiofile="temp-audio.m4a", remove_temp=True,
+            clip.write_videofile(self.videosPath + self.videoFilename, temp_audiofile="temp-audio.m4a", remove_temp=True,
                              codec="libx264", audio_codec="aac")
 
             wavFile = videoFilename.split(".")[0] + ".wav"
