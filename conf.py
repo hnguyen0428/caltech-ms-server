@@ -4,9 +4,9 @@
 # EDITED_VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/edited_videos/'
 
 base_url = 'http://127.0.0.1:5000/video/'
-ROOT_FOLDER = '/Users/hnguyen0428/Unsynced Files/CSRelated/caltech-ms-server/'
-VIDEOS_FOLDER = '/Users/hnguyen0428/Unsynced Files/CSRelated/caltech-ms-server/videos/'
-EDITED_VIDEOS_FOLDER = '/Users/hnguyen0428/Unsynced Files/CSRelated/caltech-ms-server/edited_videos/'
+ROOT_FOLDER = './'
+VIDEOS_FOLDER = './videos/'
+EDITED_VIDEOS_FOLDER = './edited_videos/'
 
 
 class Categories:
