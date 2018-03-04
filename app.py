@@ -6,17 +6,18 @@ from werkzeug.utils import secure_filename
 from utility import *
 from conf import *
 from video_parser import HighlightMaker
+from bing_search import *
 
 
 import os
 
-base_url = 'http://52.53.158.244/video/'
-VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
-EDITED_VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/edited_videos/'
+# base_url = 'http://52.53.158.244/video/'
+# VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
+# EDITED_VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/edited_videos/'
 
-# base_url = 'http://127.0.0.1:5000/video/'
-# VIDEOS_FOLDER = '/Users/hnguyen0428/Unsynced Files/CSRelated/caltech-ms-server/videos/'
-# EDITED_VIDEOS_FOLDER = '/Users/hnguyen0428/Unsynced Files/CSRelated/caltech-ms-server/edited_videos/'
+base_url = 'http://127.0.0.1:5000/video/'
+VIDEOS_FOLDER = '/Users/hnguyen0428/Unsynced Files/CSRelated/caltech-ms-server/videos/'
+EDITED_VIDEOS_FOLDER = '/Users/hnguyen0428/Unsynced Files/CSRelated/caltech-ms-server/edited_videos/'
 
 app = Flask(__name__)
 CORS(app)
@@ -36,7 +37,18 @@ def process_video(filename):
 
 
 def speech_process(filename):
-    pass
+    annotations = scrape_important(filename)
+
+    results = []
+    for item in annotations:
+        results.append({
+            'begin': item[0],
+            'topic': item[1],
+            'link': item[2]
+        })
+
+    return jsonify(results=results)
+
 
 
 @app.route('/video/upload', methods=['POST'])
@@ -73,7 +85,8 @@ def video_upload():
                     url=base_url+filename
                 )
             elif category == Categories.SPEECH:
-                pass
+                return speech_process(filename)
+
 
     return jsonify(
         error="Could not upload file"

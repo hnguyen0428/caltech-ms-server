@@ -20,14 +20,14 @@ class Microsoft_ASR():
         str_data = response.read()
         conn.close()
         self.token = str_data
-        print "Got Token: ", self.token
+        print("Got Token: ", self.token)
         return True
 
     def transcribe(self,speech_file):
 
         # Grab the token if we need it
         if self.token is None:
-            print "No Token... Getting one"
+            print("No Token... Getting one")
             self.get_speech_token()
 
         endpoint = 'https://speech.platform.bing.com/speech/recognition/conversation/cognitiveservices/v1'
