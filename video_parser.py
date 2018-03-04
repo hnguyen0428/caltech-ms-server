@@ -3,8 +3,6 @@ import numpy as np
 from moviepy.editor import *
 from conf import base_url, VIDEOS_FOLDER, EDITED_VIDEOS_FOLDER
 
-# videoFilename = "video_test.mp4"
-videoFilename = "xpecial.mp4"
 imageio.plugins.ffmpeg.download()
 
 class HighlightMaker():
@@ -115,6 +113,3 @@ class HighlightMaker():
             clip.audio.write_audiofile(self.editedVideosPath + wavFile)
 
         return clip
-
-hm = HighlightMaker()
-hm.extractHighlight(videoFilename)
