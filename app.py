@@ -1,8 +1,9 @@
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from werkzeug.utils import secure_filename
 from utility import *
 
 import os
+import cv2
 
 VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
 
@@ -39,6 +40,12 @@ def video_upload():
             return filename
 
     return "File uploaded"
+
+
+@app.route('/video/<filename>', methods=['GET'])
+def retrieve_video(filename):
+    dir = app.config['VIDEOS_FOLDER']
+    return send_from_directory(dir, filename)
 
 
 if __name__ == '__main__':
