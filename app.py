@@ -1,4 +1,5 @@
 from flask import Flask, request, send_from_directory, jsonify
+from flask import CORS
 from werkzeug.utils import secure_filename
 from utility import *
 
@@ -9,6 +10,8 @@ VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
 EDITED_VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/edited_videos/'
 
 app = Flask(__name__)
+CORS(app)
+
 app.config['VIDEOS_FOLDER'] = VIDEOS_FOLDER
 app.config['EDITED_VIDEOS_FOLDER'] = EDITED_VIDEOS_FOLDER
 
