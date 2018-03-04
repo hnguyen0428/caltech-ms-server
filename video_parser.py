@@ -1,9 +1,12 @@
 import imageio
+
+imageio.plugins.ffmpeg.download()
+
 import numpy as np
 from moviepy.editor import *
 from conf import base_url, VIDEOS_FOLDER, EDITED_VIDEOS_FOLDER
 
-imageio.plugins.ffmpeg.download()
+
 
 class HighlightMaker():
     def __init__(self, videosPath=VIDEOS_FOLDER, editedVideosPath=EDITED_VIDEOS_FOLDER):

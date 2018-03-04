@@ -4,15 +4,20 @@ from flask import Flask, request, send_from_directory, jsonify
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from utility import *
+import video_parser
 from video_parser import HighlightMaker
 
 
 import os
 import sys
 
-base_url = 'http://18.144.27.216/video/'
-VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
-EDITED_VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/edited_videos/'
+# base_url = 'http://52.53.158.244/video/'
+# VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
+# EDITED_VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/edited_videos/'
+
+base_url = 'http://127.0.0.1:5000/video/'
+VIDEOS_FOLDER = '/Users/hnguyen0428/Unsynced Files/CSRelated/caltech-ms-server/videos/'
+EDITED_VIDEOS_FOLDER = '/Users/hnguyen0428/Unsynced Files/CSRelated/caltech-ms-server/edited_videos/'
 
 app = Flask(__name__)
 CORS(app)
