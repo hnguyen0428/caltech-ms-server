@@ -31,15 +31,12 @@ def video_upload():
             return 'No selected file'
 
         if file and allowed_file(file.filename):
-            ext = extension(file.filename)
-            filename, filename_ext = generate_filename(ext)
+            filename = secure_filename(file.filename)
 
-            path = os.path.join(app.config['VIDEOS_FOLDER'], filename_ext)
+            path = os.path.join(app.config['VIDEOS_FOLDER'], filename)
             file.save(path)
 
-            audio_filename = extract_wav(filename, app.config['VIDEOS_FOLDER'])
-
-            return audio_filename
+            return filename
 
     return "File uploaded"
 
