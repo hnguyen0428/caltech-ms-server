@@ -55,7 +55,7 @@ def speech_process(filename):
 def video_upload():
     if request.method == 'POST':
         # check if the post request has the file part
-        if Categories.ENTERTAINMENT not in request.files and Categories.SPEECH not in request.files:
+        if Categories.ENTERTAINMENT not in request.files and Categories.SPEECH not in request.files and Categories.CLASSROOM:
             return jsonify(
                 error="No file part"
             )
@@ -63,6 +63,8 @@ def video_upload():
             category = Categories.ENTERTAINMENT
         elif Categories.SPEECH in request.files:
             category = Categories.SPEECH
+        elif Categories.CLASSROOM in request.files:
+            category = Categories.CLASSROOM
 
         f = request.files[category]
 
@@ -79,12 +81,12 @@ def video_upload():
             path = os.path.join(app.config['VIDEOS_FOLDER'], filename)
             f.save(path)
 
-            if category == Categories.ENTERTAINMENT:
+            if category == Categories.ENTERTAINMENT or category == Categories.SPEECH:
                 process_video(filename)
                 return jsonify(
                     url=base_url+filename
                 )
-            elif category == Categories.SPEECH:
+            elif category == Categories.CLASSROOM:
                 return speech_process(filename)
 
 

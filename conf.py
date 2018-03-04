@@ -10,3 +10,4 @@ EDITED_VIDEOS_FOLDER = '/Users/hnguyen0428/Unsynced Files/CSRelated/caltech-ms-s
 class Categories:
     ENTERTAINMENT = 'entertainment'
     SPEECH = 'speech'
+    CLASSROOM = 'classroom'
