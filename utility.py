@@ -1,7 +1,7 @@
 import random
 import string
 import subprocess
-from app import app
+from app import server
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4', 'mov', 'wmv', 'avi'])
 
@@ -27,7 +27,7 @@ def extension(filename):
     return filename[i:]
 
 def extract_wav(filename):
-    videos_path = app.config['VIDEOS_FOLDER']
+    videos_path = server.config['VIDEOS_FOLDER']
     path = videos_path + filename
 
     audio_filename = filename + '.wav'

@@ -6,9 +6,9 @@ import os
 
 VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
 
-app = Flask(__name__)
+server = Flask(__name__)
 # app.config['UPLOADED_PHOTOS_DEST'] = UPLOAD_FOLDER
-app.config['VIDEOS_FOLDER'] = UPLOAD_FOLDER
+server.config['VIDEOS_FOLDER'] = VIDEOS_FOLDER
 
 
 @app.route('/')
@@ -43,5 +43,5 @@ def video_upload():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    server.run(debug=True)
 
