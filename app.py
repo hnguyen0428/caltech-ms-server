@@ -1,9 +1,11 @@
+from __future__ import print_function
+
 from flask import Flask, request, send_from_directory, jsonify
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from utility import *
 
-from __future__ import print_function
+
 import os
 import sys
 
