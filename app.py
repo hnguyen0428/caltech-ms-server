@@ -18,7 +18,7 @@ import os
 # EDITED_VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/edited_videos/'
 
 base_url = 'http://127.0.0.1:5000/video/'
-base_url_original = 'http://127.0.0.1:5000/video/'
+base_url_original = 'http://127.0.0.1:5000/video/original/'
 ROOT_FOLDER = './'
 VIDEOS_FOLDER = './videos/'
 EDITED_VIDEOS_FOLDER = './edited_videos/'
