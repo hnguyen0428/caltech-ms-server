@@ -9,7 +9,6 @@ VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
 EDITED_VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/edited_videos/'
 
 app = Flask(__name__)
-# app.config['UPLOADED_PHOTOS_DEST'] = UPLOAD_FOLDER
 app.config['VIDEOS_FOLDER'] = VIDEOS_FOLDER
 app.config['EDITED_VIDEOS_FOLDER'] = EDITED_VIDEOS_FOLDER
 
@@ -24,14 +23,18 @@ def video_upload():
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
-            return 'No file part'
+            return jsonify(
+                error="No file part"
+            )
 
         file = request.files['file']
 
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
-            return 'No selected file'
+            return jsonify(
+                error="No selected file"
+            )
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -43,7 +46,9 @@ def video_upload():
                 url=base_url+filename
             )
 
-    return "File uploaded"
+    return jsonify(
+        error="Could not upload file"
+    )
 
 
 @app.route('/video/<filename>', methods=['GET'])
