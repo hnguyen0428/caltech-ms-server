@@ -14,19 +14,22 @@ def scrape_important(audioFile):
             important.append(line.strip())
 
     timestamped_phrases = analyze_audio(audioFile)
-    print(timestamped_phrases)
 
     timeline_annotations = []
 
     for time_start, keyPhrase_dict in timestamped_phrases:
         keyPhrases = keyPhrase_dict["keyPhrases"]
+        done = False
         for phrase in keyPhrases:
             words = map(lambda x: x.lower(), phrase.split(" ")[0])
             for word in words:
                 if word in important:
-                    link = search(phrase)
-                    timeline_annotations.append((time_start, phrase, link))
+                    query, link = search(phrase)
+                    timeline_annotations.append((time_start, query, link))
+                    done = True
                     break
+            if done:
+                break
 
     return timeline_annotations
 
@@ -38,6 +41,9 @@ def search(search_term):
     response.raise_for_status()
     search_results = response.json()
 
-    print(search_results)
-
-    return search_results['videos']['value'][0]['contentUrl']
+    if 'videos' not in search_results:
+        if 'webPages' not in search_results:
+            return search_results['queryContext']['originalQuery'], "Nothing"
+        return search_results['queryContext']['originalQuery'], search_results['webPages']['value'][0]['url']
+    else:
+        return search_results['queryContext']['originalQuery'], search_results['videos']['value'][0]['contentUrl']
