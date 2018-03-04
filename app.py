@@ -1,14 +1,23 @@
+from __future__ import print_function
+
 from flask import Flask, request, send_from_directory, jsonify
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from utility import *
 
+
 import os
+import sys
+
+print(sys.path, file=sys.stderr)
 
 base_url = 'http://18.144.27.216/video/'
 VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
 EDITED_VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/edited_videos/'
 
 app = Flask(__name__)
+CORS(app)
+
 app.config['VIDEOS_FOLDER'] = VIDEOS_FOLDER
 app.config['EDITED_VIDEOS_FOLDER'] = EDITED_VIDEOS_FOLDER
 
