@@ -4,6 +4,9 @@ from werkzeug.utils import secure_filename
 from utility import *
 
 import os
+import sys
+
+print(sys.path, file=sys.stderr)
 
 base_url = 'http://18.144.27.216/video/'
 VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
