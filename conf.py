@@ -1,4 +1,5 @@
 base_url = 'http://52.53.158.244/video/'
+ROOT_FOLDER = '/var/www/html/caltech-ms-server/'
 VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/videos/'
 EDITED_VIDEOS_FOLDER = '/var/www/html/caltech-ms-server/edited_videos/'
 

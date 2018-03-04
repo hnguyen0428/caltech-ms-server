@@ -1,5 +1,6 @@
 import requests
 from text_analyzer import analyze_audio
+from conf import ROOT_FOLDER
 
 key = "04c74a871d624275914bfbbb65f57e0b"
 
@@ -9,7 +10,7 @@ def scrape_important(audioFile):
 
     important = []
 
-    with open('./figures.txt', 'r') as source:
+    with open(ROOT_FOLDER + 'figures.txt', 'r') as source:
         for line in source:
             important.append(line.strip())
 
